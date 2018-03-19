@@ -10,9 +10,9 @@ import PickerDialog from './PickerDialog'
 
 const ColorPicker = ({
   // ColorPicker
-  defaultValue,
   onChange,
   convert,
+  value,
 
   // Text field
   name,
@@ -25,9 +25,7 @@ const ColorPicker = ({
 
   // State
   showPicker,
-  setShowPicker,
-  value,
-  setValue
+  setShowPicker
 }) => (
   <div>
     <TextField
@@ -38,7 +36,6 @@ const ColorPicker = ({
       placeholder={hintText || placeholder}
       onClick={() => setShowPicker(true)}
       onChange={e => {
-        setValue(e.target.value)
         onChange(e.target.value)
         }
       }
@@ -52,9 +49,7 @@ const ColorPicker = ({
           onChange(value)
         }}
         onChange={c => {
-          const newValue = converters[convert](c)
-          setValue(newValue)
-          onChange(newValue)
+          onChange(converters[convert](c))
         }}
       />
     )}
@@ -72,8 +67,7 @@ ColorPicker.defaultProps = {
 }
 
 const makeColorPicker = compose(
-  withState('showPicker', 'setShowPicker', false),
-  withState('value', 'setValue', ({ defaultValue }) => defaultValue)
+  withState('showPicker', 'setShowPicker', false)
 )
 
 export default makeColorPicker(ColorPicker)
