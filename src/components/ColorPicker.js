@@ -40,6 +40,7 @@ const ColorPicker = ({
         }
       }
       InputProps={{style: {color: value}}}
+      {...TextFieldProps}
     />
     {showPicker && (
       <PickerDialog
